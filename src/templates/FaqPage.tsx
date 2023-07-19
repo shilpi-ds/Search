@@ -7,67 +7,59 @@ import {
   HeadConfig,
   TemplateProps,
 } from "@yext/pages";
-import { answersHeadlessConfig } from "../config/answersHeadlessConfig";
 import "../index.css";
 import {
   SearchBar,
+  VerticalResults,
   SpellCheck,
   ResultsCount,
   Pagination,
-  DirectAnswer,
-  AppliedFilters,
-  LocationBias,
-} from "@yext/search-ui-react";
+  } from "@yext/search-ui-react";
 import {
   SearchHeadlessProvider,
   provideHeadless,
 } from "@yext/search-headless-react";
-import "../index.css";
+import { searchConfig } from "../config/searchConfig";
 import FaqCard from "../components/cards/FaqCard";
-import VerticalResults from "../components/VerticalResults";
-import Navigation from "../components/Navigation";
+import PageLayout from "../components/common/PageLayout";
 
 export const getPath: GetPath<TemplateProps> = () => {
-  return "faqs";
+  return "faq";
 };
 
 export const getHeadConfig: GetHeadConfig<
   TemplateRenderProps
 > = (): HeadConfig => {
   return {
-    title: `Search Demo`,
+    title: `Turtlehead Tacos Search`,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
   };
 };
+const verticalKey :string = "faqs";
+const limit:number = 5;
+searchConfig.verticalKey = verticalKey;
+const searcher = provideHeadless(searchConfig);
 
-answersHeadlessConfig.verticalKey = "faqs";
-const searcher = provideHeadless(answersHeadlessConfig);
-
-const Product: Template<TemplateRenderProps> = (document) => {
+const Faq: Template<TemplateRenderProps> = () => {
   return (
-    <>
-      {/* <Header props={document.document._site}/> */}
-      <SearchHeadlessProvider searcher={searcher}>
-        <div className="px-4 py-8">
-          <div className="mx-auto flex max-w-5xl flex-col">
-            <SearchBar placeholder="SEARCH YOUR QUERY HERE" />
-            <Navigation />
-            <DirectAnswer />
-            <SpellCheck />
-            <ResultsCount />
-            <AppliedFilters hiddenFields={["builtin.entityType"]} />
-
-            <VerticalResults CardComponent={FaqCard} />
-
-            <LocationBias />
-          </div>
-          <Pagination />
+    <SearchHeadlessProvider searcher={searcher}>
+      <PageLayout verticalKey={verticalKey}  limit={limit}>
+      <div className="px-4 py-8">
+        <div className="mx-auto flex max-w-5xl flex-col">
+          <SearchBar />
+          <SpellCheck />
+          <ResultsCount />
+          <VerticalResults
+            CardComponent={FaqCard}
+            displayAllOnNoResults={false}
+          />
         </div>
-      </SearchHeadlessProvider>
-      {/* <Footer props={document.document._site}/> */}
-    </>
+        <Pagination />
+      </div>
+      </PageLayout>
+    </SearchHeadlessProvider>
   );
 };
 
-export default Product;
+export default Faq;

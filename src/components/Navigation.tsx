@@ -68,12 +68,19 @@ interface NavigationProps {
   cssCompositionMethod?: CompositionMethod;
 }
 
+
 export default function Navigation({
   customCssClasses,
   cssCompositionMethod,
 }: NavigationProps) {
   // Query - Starts
   const [navparmam, setNavParam] = useState("");
+  const searchActions = useSearchActions();
+useLayoutEffect(() => {
+  searchActions.setVertical('products');
+  searchActions.executeVerticalQuery();
+});
+
   const SearchQuery: string | null =
     useSearchState((state) => state.query.input) ?? null;
   function getQueryParam(): string {

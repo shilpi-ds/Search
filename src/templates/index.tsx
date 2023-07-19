@@ -1,3 +1,5 @@
+// src/templates/search.tsx
+
 import * as React from "react";
 import {
   Template,
@@ -10,70 +12,66 @@ import {
 import "../index.css";
 import {
   SearchBar,
+  StandardCard,
   SpellCheck,
   ResultsCount,
   Pagination,
-  DirectAnswer,
-  AppliedFilters,
-  LocationBias,
+  UniversalResults,
+  StandardSection,
 } from "@yext/search-ui-react";
-
 import {
   SearchHeadlessProvider,
   provideHeadless,
 } from "@yext/search-headless-react";
-import "../index.css";
+import { searchConfig } from "../config/searchConfig";
+import PageLayout from "../components/common/PageLayout";
+import FaqCard from "../components/cards/FaqCard";
 
-import UniversalResults from "../components/UniversalResults";
-import { universalResultsConfig } from "../config/universalResultsConfig";
-import { answersHeadlessConfig } from "../config/answersHeadlessConfig";
-import Navigation from "../components/Navigation";
-
-const universalResultsFilterConfig = {
-  show: true,
-};
 export const getPath: GetPath<TemplateProps> = () => {
   return "index.html";
 };
+
 export const getHeadConfig: GetHeadConfig<
   TemplateRenderProps
 > = (): HeadConfig => {
   return {
-    title: `Search Demo`,
+    title: `Turtlehead Tacos Search`,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
   };
 };
 
-const searcher = provideHeadless(answersHeadlessConfig);
+const searcher = provideHeadless(searchConfig);
 
-const IndexPage: Template<TemplateRenderProps> = (document) => {
+const Universal: Template<TemplateRenderProps> = () => {
   return (
-    <>
-      {/* <Header props={document.document._site} /> */}
-      <SearchHeadlessProvider searcher={searcher}>
+    <SearchHeadlessProvider searcher={searcher}>
+      <PageLayout  verticalKey="null" limit={0}>
         <div className="px-4 py-8">
           <div className="mx-auto flex max-w-5xl flex-col">
-            <SearchBar placeholder="SEARCH YOUR QUERY HERE" />
-            <Navigation />
-            <DirectAnswer />
+            <SearchBar />
             <SpellCheck />
             <ResultsCount />
-            <AppliedFilters hiddenFields={["builtin.entityType"]} />
-            <div className="flex flex-wrap">
-              <UniversalResults
-                appliedFiltersConfig={universalResultsFilterConfig}
-                verticalConfigs={universalResultsConfig}
-              />
-            </div>
-            <LocationBias />
+            <UniversalResults
+              verticalConfigMap={{
+                locations: {
+                  CardComponent: StandardCard,
+                  SectionComponent: StandardSection,
+                  viewAllButton:true,
+                },
+                faqs: {
+                  CardComponent: FaqCard,
+                  viewAllButton:true,
+                },
+               
+              }}
+            />
           </div>
           <Pagination />
         </div>
-      </SearchHeadlessProvider>
-      {/* <Footer props={document.document._site} /> */}
-    </>
+      </PageLayout>
+    </SearchHeadlessProvider>
   );
 };
 
-export default IndexPage;
+export default Universal;

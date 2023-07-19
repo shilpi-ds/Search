@@ -62,19 +62,19 @@ export function VerticalResultsDisplay(
   return (
     <>
       {results &&
-        results.map((i,index) => {
+        results.map((i) => {
           return (
             <>
-              <div key={index}>
-                {i.entityType === "faq" ? (
-                  <div className={resultsClassNames}>
-                    {renderResult(CardComponent, cardConfig, i)}
-                  </div>
-                ) : (
-                  <div className={resultsClassNames}>
-                    {renderResult(CardComponent, cardConfig, i)}
-                  </div>
-                )}
+            <div>
+              {i.entityType === "faq" ? (
+                <div className={resultsClassNames}>
+                  {renderResult(CardComponent, cardConfig, i)}
+                </div>
+              ) : (
+                <div className={resultsClassNames}>
+                  {renderResult(CardComponent, cardConfig, i)}
+                </div>
+              )}
               </div>
             </>
           );
@@ -142,12 +142,13 @@ export default function VerticalResults(
       (state) => state.vertical?.noResults?.allResultsForVertical.resultsCount
     ) || 0;
   const isLoading = useSearchState((state) => state.searchStatus.isLoading);
-
-  let results = verticalResults;
-  let resultsCount = verticalResultsCount;
   const aleternateVerticals = useSearchState(
     (state) => state.vertical.noResults?.alternativeVerticals
   );
+
+  let results = verticalResults;
+  let resultsCount = verticalResultsCount;
+
 
   if (verticalResults.length === 0 && displayAllOnNoResults) {
     results = allResultsForVertical;
@@ -155,15 +156,16 @@ export default function VerticalResults(
 
     const filterVariable =
       aleternateVerticals?.filter(
-        (filtredResults) => filtredResults.resultsCount > 0
+        (filtredResulta) => filtredResulta.resultsCount > 0
       ) || [];
-
-    const alternateVerticals =
+      
+      const alternateVerticals =
       filterVariable.length > 0
-        ? filterVariable.map((results: any,index:number) => {
+        ? filterVariable.map((results: any) => {
+          
             return (
               <>
-                <a href={`/${results.verticalKey}`} key={index}>
+                <a href={`/${results.verticalKey}`}>
                   <li>{results.verticalKey}</li>
                 </a>
               </>

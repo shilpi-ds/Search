@@ -1,3 +1,5 @@
+// src/templates/search.tsx
+
 import * as React from "react";
 import {
   Template,
@@ -7,26 +9,23 @@ import {
   HeadConfig,
   TemplateProps,
 } from "@yext/pages";
-import { answersHeadlessConfig } from "../config/answersHeadlessConfig";
 import "../index.css";
 import {
   SearchBar,
+  Facets,
+  StandardFacet,
+  StandardCard,
+  VerticalResults,
   SpellCheck,
   ResultsCount,
   Pagination,
-  DirectAnswer,
-  AppliedFilters,
-  LocationBias,
-} from "@yext/search-ui-react";
-
+  } from "@yext/search-ui-react";
 import {
   SearchHeadlessProvider,
   provideHeadless,
 } from "@yext/search-headless-react";
-import "../index.css";
-
-import LocationCard from "../components/cards/LocationCard";
-import VerticalResults from "../components/VerticalResults";
+import { searchConfig } from "../config/searchConfig";
+import PageLayout from "../components/common/PageLayout";
 
 export const getPath: GetPath<TemplateProps> = () => {
   return "locations";
@@ -36,37 +35,40 @@ export const getHeadConfig: GetHeadConfig<
   TemplateRenderProps
 > = (): HeadConfig => {
   return {
-    title: `Demo Search`,
+    title: `Turtlehead Tacos Search`,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
   };
 };
+const verticalKey :string = "locations"
+const limit:number = 5;
+searchConfig.verticalKey = verticalKey;
+const searcher = provideHeadless(searchConfig);
 
-answersHeadlessConfig.verticalKey = "articles";
-const searcher = provideHeadless(answersHeadlessConfig);
-
-const Article: Template<TemplateRenderProps> = () => {
+const Location: Template<TemplateRenderProps> = () => {
   return (
-    <>
-      {/* <Header props={document.document._site}/> */}
-      <SearchHeadlessProvider searcher={searcher}>
-        <div className="px-4 py-8">
-          <div className="mx-auto flex max-w-5xl flex-col">
-            <SearchBar placeholder="SEARCH YOUR QUERY HERE" />
-   
-            <DirectAnswer />
-            <SpellCheck />
-            <ResultsCount />
-            <AppliedFilters hiddenFields={["builtin.entityType"]} />
-            <VerticalResults CardComponent={LocationCard} />
-            <LocationBias />
-          </div>
-          <Pagination />
+    <SearchHeadlessProvider searcher={searcher}>
+      <PageLayout  verticalKey={verticalKey} limit={limit}>
+      <div className="px-4 py-8">
+        <div className="mx-auto flex max-w-5xl flex-col">
+          <SearchBar />
+          <SpellCheck />
+          <ResultsCount />
+         <Facets onlyRenderChildren={true}>
+  <StandardFacet fieldId={"address.city"} defaultExpanded={false} label={"Filter By City"}
+  />
+    <StandardFacet fieldId={"address.region"} defaultExpanded={false} label={"Filter By Region"}/>
+</Facets>
+          <VerticalResults
+            CardComponent={StandardCard}
+            displayAllOnNoResults={false}
+          />
         </div>
-      </SearchHeadlessProvider>
-      {/* <Footer props={document.document._site}/> */}
-    </>
+        <Pagination />
+      </div>
+      </PageLayout>
+    </SearchHeadlessProvider>
   );
 };
 
-export default Article;
+export default Location;
