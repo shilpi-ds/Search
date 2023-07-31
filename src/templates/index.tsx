@@ -36,7 +36,7 @@ export const getHeadConfig: GetHeadConfig<
   TemplateRenderProps
 > = (): HeadConfig => {
   return {
-    title: `Turtlehead Tacos Search`,
+    title: `Search`,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
   };
@@ -47,7 +47,7 @@ const searcher = provideHeadless(searchConfig);
 const Universal: Template<TemplateRenderProps> = () => {
   return (
     <SearchHeadlessProvider searcher={searcher}>
-      <PageLayout  verticalKey="null" limit={0}>
+      <PageLayout  verticalKey="null" limit={5}>
         <div className="px-4 py-8">
           <div className="mx-auto flex max-w-5xl flex-col">
             <SearchBar placeholder="Search for Products..."/>

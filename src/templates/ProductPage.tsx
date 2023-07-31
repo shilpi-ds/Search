@@ -16,6 +16,8 @@ import {
   Pagination,
   Facets,
   StandardFacet,
+  NumericalFacet,
+  NumericalFacets,
   } from "@yext/search-ui-react";
 import {
   SearchHeadlessProvider,
@@ -56,6 +58,12 @@ const Product: Template<TemplateRenderProps> = () => {
   <StandardFacet fieldId={"brand"} defaultExpanded={false} label={"Filter By Brands"}
   />
     <StandardFacet fieldId={"size"} defaultExpanded={false} label={"Filter By Size"}/>
+    <NumericalFacets fieldId={"price.value"}
+              customCssClasses={{ container: "mr-10" }}
+              searchOnChange={false}
+              inputPrefix={<p>$</p>}
+              label={"Filter By Price"}
+            />
     {/* <StandardFacet fieldId={"price"} defaultExpanded={false} label={"Filter By Price"}/> */}
 </Facets>
           <VerticalResults

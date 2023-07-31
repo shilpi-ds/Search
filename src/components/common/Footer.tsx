@@ -5,8 +5,7 @@ const Footer = ()=>{
     <div>
       <ul>
         <li>Footer</li>
-        <li>Footer</li>
-      </ul>
+        </ul>
     </div>
   )
 }
