@@ -17,6 +17,11 @@ const ProductCard: CardComponent<Product> = ({
               <span className="faq-icon"></span>
               <div className="faq-content new-accr">
                 <p>{product?.name}</p>
+                {/* <p>{product?.price}</p> */}
+                <p>{product?.color}</p>
+                <p>{product?.size}</p>
+                <p>{product?.brand}</p>
+                <p><img src={product?.primaryPhoto?.image?.sourceUrl} height="300px" width="300px"/></p>
               </div>
            
         </div>

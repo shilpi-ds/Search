@@ -14,6 +14,8 @@ import {
   SpellCheck,
   ResultsCount,
   Pagination,
+  Facets,
+  StandardFacet,
   } from "@yext/search-ui-react";
 import {
   SearchHeadlessProvider,
@@ -50,6 +52,12 @@ const Product: Template<TemplateRenderProps> = () => {
           <SearchBar placeholder="Search for Products..."/>
           <SpellCheck />
           <ResultsCount />
+          <Facets onlyRenderChildren={true}>
+  <StandardFacet fieldId={"brand"} defaultExpanded={false} label={"Filter By Brands"}
+  />
+    <StandardFacet fieldId={"size"} defaultExpanded={false} label={"Filter By Size"}/>
+    {/* <StandardFacet fieldId={"price"} defaultExpanded={false} label={"Filter By Price"}/> */}
+</Facets>
           <VerticalResults
             CardComponent={ProductCard}
             displayAllOnNoResults={false}
