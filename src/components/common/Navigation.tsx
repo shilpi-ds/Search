@@ -34,6 +34,8 @@ const  Navigation = ({verticalKey,limit} : Props)=> {
       <div className='border-l-2 border-indigo-400 h-6 mt-2'></div>
       <a className='text-blue-500 hover:underline p-2' href='./locations'>Location</a>
       <div className='border-l-2 border-indigo-400 h-6 mt-2'></div>
+      <a className='text-blue-500 hover:underline p-2' href='./product'>Products</a>
+      <div className='border-l-2 border-indigo-400 h-6 mt-2'></div>
       <a className='text-blue-500 hover:underline p-2' href='./faq'>FAQ,s</a>
       <div className='border-l-2 border-indigo-400 h-6 mt-2'></div>
       

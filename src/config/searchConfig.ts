@@ -1,6 +1,6 @@
 import { HeadlessConfig } from "@yext/search-headless-react";
 
-export const UniversalLimit = { locations: 3, faqs: 2};
+export const UniversalLimit = { locations: 3, products:5,faqs: 2};
 export const endpoints = {
   universalSearch:
   "https://liveapi-sandbox.yext.com/v2/accounts/me/answers/query",

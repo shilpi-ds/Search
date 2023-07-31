@@ -26,6 +26,7 @@ import {
 import { searchConfig } from "../config/searchConfig";
 import PageLayout from "../components/common/PageLayout";
 import FaqCard from "../components/cards/FaqCard";
+import ProductCard from "../components/cards/ProductCard";
 
 export const getPath: GetPath<TemplateProps> = () => {
   return "index.html";
@@ -49,7 +50,7 @@ const Universal: Template<TemplateRenderProps> = () => {
       <PageLayout  verticalKey="null" limit={0}>
         <div className="px-4 py-8">
           <div className="mx-auto flex max-w-5xl flex-col">
-            <SearchBar />
+            <SearchBar placeholder="Search for Products..."/>
             <SpellCheck />
             <ResultsCount />
             <UniversalResults
@@ -57,6 +58,10 @@ const Universal: Template<TemplateRenderProps> = () => {
                 locations: {
                   CardComponent: StandardCard,
                   SectionComponent: StandardSection,
+                  viewAllButton:true,
+                },
+                products: {
+                  CardComponent: ProductCard,
                   viewAllButton:true,
                 },
                 faqs: {

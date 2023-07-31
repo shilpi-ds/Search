@@ -20,11 +20,11 @@ import {
   provideHeadless,
 } from "@yext/search-headless-react";
 import { searchConfig } from "../config/searchConfig";
-import FaqCard from "../components/cards/FaqCard";
 import PageLayout from "../components/common/PageLayout";
+import ProductCard from "../components/cards/ProductCard";
 
 export const getPath: GetPath<TemplateProps> = () => {
-  return "faq";
+  return "product";
 };
 
 export const getHeadConfig: GetHeadConfig<
@@ -36,12 +36,12 @@ export const getHeadConfig: GetHeadConfig<
     viewport: "width=device-width, initial-scale=1",
   };
 };
-const verticalKey :string = "faqs";
+const verticalKey :string = "products";
 const limit:number = 5;
 searchConfig.verticalKey = verticalKey;
 const searcher = provideHeadless(searchConfig);
 
-const Faq: Template<TemplateRenderProps> = () => {
+const Product: Template<TemplateRenderProps> = () => {
   return (
     <SearchHeadlessProvider searcher={searcher}>
       <PageLayout verticalKey={verticalKey}  limit={limit}>
@@ -51,7 +51,7 @@ const Faq: Template<TemplateRenderProps> = () => {
           <SpellCheck />
           <ResultsCount />
           <VerticalResults
-            CardComponent={FaqCard}
+            CardComponent={ProductCard}
             displayAllOnNoResults={false}
           />
         </div>
@@ -62,4 +62,4 @@ const Faq: Template<TemplateRenderProps> = () => {
   );
 };
 
-export default Faq;
+export default Product;
