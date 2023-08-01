@@ -16,11 +16,11 @@ const ProductCard: CardComponent<Product> = ({
          
               <span className="faq-icon"></span>
               <div className="faq-content new-accr">
-                <p>{product?.name}</p>
-                <p>{product?.price.currencyCode}</p> <p>{product?.price.value}</p> 
-                <p>{product?.color}</p>
-                <p>{product?.size}</p>
-                <p>{product?.brand}</p>
+                <p>Product Name : {product?.name}</p>
+                {/* <p>{product?.price.currencyCode}</p>*/} <p>Price : ${product?.price.value}</p>  
+                <p>Color : {product?.color}</p>
+                <p>Size : {product?.size}</p>
+                <p>Brand : {product?.brand}</p>
                 <p><img src={product?.primaryPhoto?.image?.sourceUrl} height="300px" width="300px"/></p>
               </div>
            
